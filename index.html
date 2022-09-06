@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<body class="flex-column min-100-vh">
+    <header class="hero mb-3">
+        <h1 class="app-title text-center"><i class="fab fa-github"></i> Weather Dashboard</h1>
+      
+    </header>
+
+    <main class="flex-row justify-space-between">
+        <div class="col-4 col-md-4">
+            <div class="card">
+                <h3 class="card-header"><b>Search for a City:</b></h3>
+                <form id="user-form" class="card-body">
+                    <label class="form-label" for="city-name"></label>
+                    <input name="city-name" id="city-name" type="text" autofocus="true" class="form-input" style="width: 100%;" />
+                    <button type="submit" class="btn bg-primary text-light mt-2" style="width: 100%;">Search</button>
+                </form>
+            </div>
+
+            <div class="past-search border-top border-primary mt-4">
+                <h2></h2>
+            </div>
+
+        </div>
+
+        <div class="col-8 col-md-8 mt-4 d-flex justify-content-end">
+            <h2 class="weather-now">
+                <span id="city-search-term"></span>
+            </h2>
+            <div id="city-container" class="list-group"></div>
+        </div>
+
+        <div class="col-8 col-md-8 mt-4 d-flex justify-content-end">
+            <h2 class="forecast">
+                <span id="five-day-forecast">5 day forecast</span>
+            </h2>
+            <div id="forecast-container" class="list-group"></div>
+        </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="./assets/js/homepage.js"></script>
+
+</body>
+
+</html>
