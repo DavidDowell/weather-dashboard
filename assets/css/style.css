@@ -4,3 +4,70 @@
     background: rgb(86,80,189);
     background: linear-gradient(90deg, rgba(86,80,189,1) 1%, rgba(9,121,120,1) 33%, rgba(0,212,255,1) 100%);    
 }
+
+html, body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    height: 100%;
+}
+
+h1 {
+    color: white;
+    padding: 10px;
+}
+
+
+
+#currentCity{
+    border: solid;
+    border-width: 2px;
+    border-color: black;
+    padding: 5px;
+    margin: 5px;
+}
+
+#forecast {
+    padding: 5px;
+    margin: 5px;
+}
+
+.hide {
+    display: none;
+}
+
+.btn-info{
+    margin: 2.5px;
+}
+
+.low-uvi {
+    background-color: green;
+    padding: 4px;
+    border-radius: 25%;
+}
+
+.moderate-uvi {
+    background-color: yellow;
+    padding: 4px;
+    border-radius: 25%;
+}
+
+.high-uvi {
+    background-color: orange;
+    padding: 4px;
+    border-radius: 25%;
+}
+
+.very-high-uvi {
+    background-color: red;
+    padding: 4px;
+    border-radius: 25%;
+}
+
+.extreme-uvi {
+    background-color: purple;
+    padding: 4px;
+    border-radius: 25%;
+}
+
+.forecast-square {
+    border: 5px solid black;
+}
