@@ -15,7 +15,9 @@ h1 {
     padding: 10px;
 }
 
-
+.hide {
+    display: none;
+}
 
 #currentCity{
     border: solid;

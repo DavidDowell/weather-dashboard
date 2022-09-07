@@ -1,4 +1,5 @@
 
+var searchBtn = $(".search");
 
 initLocalStorage();
 
@@ -8,6 +9,43 @@ if (localStorage.getItem("prevCityWeatherSrch") != "[]") {
 }
 
 dispalySearchHist();
+
+//retrieving city coordinates from server
+$(document).on("click", ".past-search", function(event) {
+    event.preventDefault();
+    var cityName = $(this).attr("id");
+    var apiKey = "6406ca836e96fe35d13d0645f945ad0b"
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&cnt=5&units=imperial&appid=" + apiKey;
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (results) {
+        weatherForecast(results);
+    })
+})
+
+searchBtn.on("click", function(event) {
+    event.preventDefault();
+    var cityName = $("#city-name").val();
+    var apiKey = "6406ca836e96fe35d13d0645f945ad0b"
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&cnt=5&units=imperial&appid=" + apiKey;
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function(results){
+        weatherForecast(results);
+        addToSearchHist(results.name);
+    });
+    $("#city-name").val("")
+});
+
+function weatherForecast(results) {
+
+}
+
+function addToSearchHist(newCityName){
+    
+}
 
 function initLocalStorage() {
     if (localStorage.getItem("prevCityWeatherSrch") === null) {
