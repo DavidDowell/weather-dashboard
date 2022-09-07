@@ -11,7 +11,7 @@ $(document).ready(function () {
     dispalySearchHist();
 
     //retrieving city coordinates from server
-    $(document).on("click", ".past-search", function(event) {
+    $(document).on("click", ".past-search", function (event) {
         event.preventDefault();
         var cityName = $(this).attr("id");
         var apiKey = "6406ca836e96fe35d13d0645f945ad0b"
@@ -24,7 +24,7 @@ $(document).ready(function () {
         })
     })
 
-    searchBtn.on("click", function(event) {
+    searchBtn.on("click", function (event) {
         event.preventDefault();
         var cityName = $("#city-name").val();
         var apiKey = "6406ca836e96fe35d13d0645f945ad0b"
@@ -32,7 +32,7 @@ $(document).ready(function () {
         $.ajax({
             url: queryURL,
             method: "GET"
-        }).then(function(results){
+        }).then(function (results) {
             weatherForecast(results);
             addToSearchHist(results.name);
         });
@@ -52,35 +52,36 @@ $(document).ready(function () {
         weatherIcon(currentWethIcon);
     }
 
- 
-function findWithCoords(currentCityCoLat, currentCityCoLon) {
-    var apiKey = "6406ca836e96fe35d13d0645f945ad0b";
-    var queryURL2 = "https://api.openweathermap.org/data/2.5/onecall?lat=" + currentCityCoLat + "&lon=" + currentCityCoLon + "&exclude=minutely,hourly&units=imperial&appid=" + apiKey;
-    $.ajax({
-        url: queryURL2,
-        method: "GET"
-    }).then(function (results) {
-        var currentCityTemp = results.current.temp;
-        $("#currentTemp").text("Temperature: " + currentCityTemp +" F");
-        var currentCityHum = results.current.humidity;
-        $("#currentHumid").text("Humidity: " + currentCityHum + "%");
-        var currentCityWinSpeed = results.current.wind_speed;
-        $("#currentWind").text("Wind Speed: " + currentCityWinSpeed + " mph")
-        var currentCityUvi = results.current.uvi;
-        uviIndex();
-        fiveDayForecast();
-    })
-}
+    function weatherIcon(currentWethIcon) {
+        var currentWethImg = "assets/images/" + currentWethIcon + "@2.png";
+        var currentWethIconImage = $("<img>");
+        currentWethIconImage.attr("src", currentWethImg);
+        $("#currentCityInfo").append(currentWethIconImage);
+    }
 
 
-
-    function addToSearchHist(){
-
+    function findWithCoords(currentCityCoLat, currentCityCoLon) {
+        var apiKey = "6406ca836e96fe35d13d0645f945ad0b";
+        var queryURL2 = "https://api.openweathermap.org/data/2.5/onecall?lat=" + currentCityCoLat + "&lon=" + currentCityCoLon + "&exclude=minutely,hourly&units=imperial&appid=" + apiKey;
+        $.ajax({
+            url: queryURL2,
+            method: "GET"
+        }).then(function (results) {
+            var currentCityTemp = results.current.temp;
+            $("#currentTemp").text("Temperature: " + currentCityTemp + " F");
+            var currentCityHum = results.current.humidity;
+            $("#currentHumid").text("Humidity: " + currentCityHum + "%");
+            var currentCityWinSpeed = results.current.wind_speed;
+            $("#currentWind").text("Wind Speed: " + currentCityWinSpeed + " mph")
+            var currentCityUvi = results.current.uvi;
+            uviIndex(currentCityUvi);
+            fiveDayForecast(results);
+        })
     }
 
     function initLocalStorage() {
         if (localStorage.getItem("prevCityWeatherSrch") === null) {
-            localStorage.setItem("prevCityWeatherSrch", "[]"); 
+            localStorage.setItem("prevCityWeatherSrch", "[]");
         } else if (localStorage.getItem("prevCityWeatherSrch") === "[]") {
             return;
         };
@@ -95,6 +96,35 @@ function findWithCoords(currentCityCoLat, currentCityCoLon) {
         var currentIntDay = inDateFormat.getDate();
         var currentIntYear = inDateFormat.getFullYear();
         $("currentCityInfo").append("<span>" + "(" + currentIntMonth + "/" + currentIntDay + "/" + currentIntYear + ")" + "</span>");
+    }
+
+    function renderLastCity(lastCity) {
+        var cityName = lastCity;
+        var apiKey = "6406ca836e96fe35d13d0645f945ad0b";
+        var queryURL3 = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&cnt=5&units=imperial&appid=" + apiKey;
+        $.ajax({
+            url: queryURL3,
+            method: "GET"
+        }).then(function (results) {
+            $(".hide").attr("class", "row");
+            var currentCityName = results.name;
+            $("#currentCityInfo").text(currentCityName + " ");
+            var currentCityLon = results.coord.lon;
+            var currentCityLat = results.coord.lat;
+            findWithCoords(currentCityLat, currentCityLon);
+            var currentCityDt = results.sys.sunrise;
+            dateConverter(currentCityDt);
+            var currentWethIcon = results.weather[0].icon;
+            weatherIcon(currentWethIcon);
+        });
+    }
+
+    function addToSearchHist(newCityName) {
+        initLocalStorage();
+        var currentSrchHist = JSON.parse(localStorage.getItem("prevCityWeatherSrch"));
+        currentSrchHist.unshift(newCityName);
+        localStorage.setItem("prevCityWeatherSrch", JSON.stringify(currentSrchHist))
+        dispalySearchHist();
     }
 
     function dispalySearchHist() {
