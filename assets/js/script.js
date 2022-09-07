@@ -67,15 +67,72 @@ function findWithCoords(currentCityCoLat, currentCityCoLon) {
         var currentCityWinSpeed = results.current.wind_speed;
         $("#currentWind").text("Wind Speed: " + currentCityWinSpeed + " mph")
         var currentCityUvi = results.current.uvi;
-        uviIndex();
+        uviIndex(currentCityUvi);
         fiveDayForecast();
     })
 }
 
+function fiveDayForecast(results) {
+    $("#forecast").text("");
+    var forecastHeader = $("<h4>");
+    forecastHeader.text("5-Day Forecast: ");
+    $("#forecast").append(forecastHeader);
+    for (i = 1; i < 6; i++) {
+        var forecastSquare = $("<div>");
+        forecastSquare.attr("class", "col forecast-square")
+        var fiveDayDateP = $("<p>");
+        var fiveDayDate = results.daily[i].sunrise;
+        var inMilliseconds = fiveDayDate * 1000;
+        var inDateFormat = new Date(inMilliseconds);
+        var currentIntMonth = inDateFormat.getMonth() + 1;
+        var currentIntday = inDateFormat.getDate();
+        var currentIntYear = inDateFormat.getFullYear();
+        var monthDayYear = currentIntMonth + "/" + currentIntday + "/" + currentIntYear;
+        //img
+        var forecastWethImg = "assets/images/" + results.daily[i].weather[0].icon + "@2x.png";
+        var forecastWethIcon = $("<img>");
+        forecastWethIcon.attr("src", forecastWethImg);
+
+        //temp, hum
+        var forecastTempP = $("</p>");
+        var forecastTemp = "Temp: " + results.daily[i].temp.max + " F";
+        forecastTempP.append(forecastTemp);
+        var forecastHumP = $("</p>");
+        var forecastHum = "Humidity: " + results.daily[i].humidity + "%";
+        forecastHumP.append(forecastHum);
+
+    }
+}
+
+function uviIndex(currentCityUvi) {
+    $("#currentUvi").text("");
+    var uviIndexText = $("<span>");
+    uviIndexText.text("UV Index: ");
+    $("#currentUvi").append(uviIndexText);
+    var currentCityUviContainer = $("<span>");
+    if (currentCityUvi >= 0 && currentCityUvi <= 2) {
+        currentCityUviContainer.attr("class", "low-uvi");
+    } else if (currentCityUvi > 2 && currentCityUvi <= 5) {
+        currentCityUviContainer.attr("class", "moderate-uvi");
+    } else if (currentCityUvi > 5 && currentCityUvi <=7) {
+        currentCityUviContainer.attr("class", "high-uvi");
+    } else if (currentCityUvi > 7 && currentCityUvi <= 10) {
+        currentCityUviContainer.attr("class", "very-high-uvi")
+    } else if (currentCityUvi > 10) {
+        currentCityUviContainer.attr("class", "extreme-uvi forecast-square");
+    };
+    currentCityUviContainer.text(currentCityUvi);
+    $("#currentUvi").append(currentCityUviHolder);
+}
 
 
-    function addToSearchHist(){
 
+    function addToSearchHist(newCityName){
+        initLocalStorage();
+        var currentSrchHist = JSON.parse(localStorage.getItem("prevCityWeatherSrch"));
+        currentSrchHist.unshift(newCityName);
+        localStorage.setItem("prevCityWeatherSrch", JSON.stringify(currentSrchHist));
+        dispalySearchHist();
     }
 
     function initLocalStorage() {
