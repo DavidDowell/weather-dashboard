@@ -1,11 +1,12 @@
 .hero {
     padding: 10px 0px 10px 0px;
     color: white;
-    background: rgb(86,80,189);
-    background: linear-gradient(90deg, rgba(86,80,189,1) 1%, rgba(9,121,120,1) 33%, rgba(0,212,255,1) 100%);    
+    background: rgb(86, 80, 189);
+    background: linear-gradient(90deg, rgba(86, 80, 189, 1) 1%, rgba(9, 121, 120, 1) 33%, rgba(0, 212, 255, 1) 100%);
 }
 
-html, body {
+html,
+body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     height: 100%;
 }
@@ -19,7 +20,7 @@ h1 {
     display: none;
 }
 
-#currentCity{
+#currentCity {
     border: solid;
     border-width: 2px;
     border-color: black;
@@ -36,7 +37,7 @@ h1 {
     display: none;
 }
 
-.btn-info{
+.btn-info {
     margin: 2.5px;
 }
 
@@ -71,5 +72,5 @@ h1 {
 }
 
 .forecast-square {
-    border: 5px solid black;
+    border: 3px solid black;
 }
