@@ -19,3 +19,5 @@ This dashboard saves the user input in local storage and appends previous search
 
 
 ![](assets/images/06-server-side-apis-homework-demo.png)
+
+https://daviddowell.github.io/weather-dashboard/
